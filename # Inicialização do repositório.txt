@@ -1,0 +1,27 @@
+# Inicialização do repositório
+git init
+
+# Adição dos arquivos ao controle de versão
+git add .
+
+# Primeiro commit com estrutura inicial
+git commit -m "Commit inicial: estrutura do projeto"
+
+# Verificação do nome do branch
+git branch
+
+# Renomeando para main (caso necessário)
+git branch -u master
+
+# Conexão com o repositório remoto
+git remote add origin https://github.com/Thaise-Araujo/sistema-leilao.git
+
+# Envio dos arquivos para o GitHub
+git push -u origin main
+
+# Commits de funcionalidades
+git commit -m "Tela cadastroVIEW definida como principal"
+git commit -m "Botão salvar cadastrando produto no banco"
+git commit -m "Mensagem de sucesso/erro no cadastro"
+git commit -m "Listagem de produtos funcionando"
+
