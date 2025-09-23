@@ -77,22 +77,24 @@ public class ProdutosDAO {
 
     // Método para vender produto (atualizar status para "Vendido")
     public void venderProduto(int idProduto) {
-        try {
-            conn = new conectaDAO().connectDB();
-            String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
-            prep = conn.prepareStatement(sql);
-            prep.setInt(1, idProduto);
-            prep.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao vender produto: " + e.getMessage());
-        } finally {
-            try {
-                if (prep != null) prep.close();
-                if (conn != null) conn.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro ao fechar conexão: " + e.getMessage());
-            }
+       String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+
+    try (Connection conn = new conectaDAO().connectDB();
+         PreparedStatement prep = conn.prepareStatement(sql)) {
+
+        prep.setInt(1, idProduto);
+        int linhasAfetadas = prep.executeUpdate();
+
+        if (linhasAfetadas > 0) {
+            JOptionPane.showMessageDialog(null, "Produto vendido com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Produto não encontrado ou já vendido.");
         }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Erro ao vender produto: " + e.getMessage());
+    }
+
     }
 
     // Método para listar produtos vendidos
